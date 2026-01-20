@@ -1,4 +1,5 @@
 {
+  "include": [".opencode/**/*"],
   "compilerOptions": {
     // Environment setup & latest features
     "lib": ["ES2020"],
