@@ -21,13 +21,18 @@
   },
   "devDependencies": {
     "@opencode-ai/plugin": "latest",
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "conventional-changelog-cli": "^5.0.0"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "engines": {
     "bun": ">=1.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   },
   "files": [
     "index.ts",

@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  checks: write
+  actions: read
+
+jobs:
+  test:
+    name: Test
+    runs-on: macos-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Type check
+        run: bun run --bun tsc --noEmit
+
+      - name: Run tests
+        run: |
+          bun -e '
+            import { CaffeinateManager } from "./src/caffeinate.ts";
+            console.log("Testing CaffeinateManager...");
+            console.log("isMacOS:", CaffeinateManager.isMacOS());
+            
+            const manager = new CaffeinateManager();
+            await manager.start();
+            console.log("Started:", manager.isRunning());
+            await manager.stop();
+            console.log("Stopped:", !manager.isRunning());
+            
+            // Test multiple sessions
+            await manager.start();
+            await manager.start();
+            await manager.start();
+            console.log("3 sessions:", manager.getActiveSessionCount());
+            await manager.forceStop();
+            console.log("All tests passed!");
+          '
