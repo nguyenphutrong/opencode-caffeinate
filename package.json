@@ -1,11 +1,36 @@
 {
   "name": "opencode-caffeinate",
-  "module": "index.ts",
+  "version": "0.1.0",
+  "description": "Prevent macOS sleep while OpenCode sessions are active",
+  "author": "Trong Nguyen",
+  "license": "MIT",
   "type": "module",
+  "main": "index.ts",
+  "types": "index.ts",
+  "keywords": [
+    "opencode",
+    "plugin",
+    "caffeinate",
+    "macos",
+    "sleep",
+    "prevent-sleep"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nguyenphutrong/opencode-caffeinate.git"
+  },
   "devDependencies": {
+    "@opencode-ai/plugin": "latest",
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
-  }
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "files": [
+    "index.ts",
+    "src/"
+  ]
 }
