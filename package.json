@@ -5,8 +5,8 @@
   "author": "Trong Nguyen",
   "license": "MIT",
   "type": "module",
-  "main": "index.ts",
-  "types": "index.ts",
+  "main": ".opencode/plugin/index.ts",
+  "types": ".opencode/plugin/index.ts",
   "keywords": [
     "opencode",
     "plugin",
@@ -35,7 +35,6 @@
     "provenance": true
   },
   "files": [
-    "index.ts",
-    "src/"
-  ]
+		".opencode/"
+	],
 }
