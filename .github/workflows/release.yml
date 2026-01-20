@@ -53,19 +53,15 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Update Changelog
+      - name: Update Changelog and amend commit
         run: |
           npx conventional-changelog-cli -p angular -i CHANGELOG.md -s
           git add CHANGELOG.md
-
-      - name: Commit and tag
-        run: |
-          git commit -a -m "chore(release): ${{ steps.version.outputs.new_version }} [skip ci]"
-          git tag "v${{ steps.version.outputs.new_version }}"
+          git commit --amend --no-edit
 
       - name: Push changes
         run: |
-          git push
+          git push --force
           git push origin "v${{ steps.version.outputs.new_version }}"
 
       - name: Publish to npm
