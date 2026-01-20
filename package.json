@@ -35,6 +35,6 @@
     "provenance": true
   },
   "files": [
-		".opencode/"
-	],
+    ".opencode/"
+  ]
 }
