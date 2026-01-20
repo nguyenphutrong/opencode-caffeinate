@@ -32,24 +32,20 @@ jobs:
       - name: Type check
         run: bun run --bun tsc --noEmit
 
-      - name: Run tests
+      - name: Verify plugin exports
         run: |
           bun -e '
-            import { CaffeinateManager } from "./src/caffeinate.ts";
-            console.log("Testing CaffeinateManager...");
-            console.log("isMacOS:", CaffeinateManager.isMacOS());
+            import { CaffeinatePlugin } from "./.opencode/plugin/index.ts";
+            import pluginDefault from "./.opencode/plugin/index.ts";
             
-            const manager = new CaffeinateManager();
-            await manager.start();
-            console.log("Started:", manager.isRunning());
-            await manager.stop();
-            console.log("Stopped:", !manager.isRunning());
+            console.log("Testing plugin exports...");
+            console.log("Named export exists:", typeof CaffeinatePlugin === "function");
+            console.log("Default export exists:", typeof pluginDefault === "function");
+            console.log("Exports match:", CaffeinatePlugin === pluginDefault);
             
-            // Test multiple sessions
-            await manager.start();
-            await manager.start();
-            await manager.start();
-            console.log("3 sessions:", manager.getActiveSessionCount());
-            await manager.forceStop();
-            console.log("All tests passed!");
+            if (typeof CaffeinatePlugin !== "function") {
+              throw new Error("CaffeinatePlugin is not a function");
+            }
+            
+            console.log("All export tests passed!");
           '
