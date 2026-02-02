@@ -1,6 +1,6 @@
 {
   "name": "opencode-caffeinate",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Prevent macOS sleep while OpenCode sessions are active",
   "author": "Trong Nguyen",
   "license": "MIT",
