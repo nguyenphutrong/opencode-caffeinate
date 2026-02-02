@@ -27,6 +27,9 @@
   "peerDependencies": {
     "typescript": "^5"
   },
+  "scripts": {
+    "test": "bun test ./.opencode/plugin/__tests__"
+  },
   "engines": {
     "bun": ">=1.0.0"
   },
