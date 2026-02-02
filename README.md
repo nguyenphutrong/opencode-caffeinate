@@ -44,15 +44,22 @@ git clone https://github.com/nguyenphutrong/opencode-caffeinate.git .opencode/pl
 
 ## How it works
 
-1. When a session is created (`session.created` event), the plugin spawns a `caffeinate` process
-2. Multiple sessions are tracked - caffeinate keeps running as long as any session is active
-3. When all sessions end (`session.idle` or `session.deleted` events), caffeinate is stopped
+1. When a session is created (`session.created` event), the plugin registers the session in `/tmp/opencode-caffeinate/sessions/`
+2. A single `caffeinate` process is spawned if not already running (tracked via PID file at `/tmp/opencode-caffeinate/caffeinate.pid`)
+3. Multiple parallel OpenCode instances are supported - sessions are tracked across processes
+4. When a session ends (`session.idle` or `session.deleted` events), the session is unregistered
+5. When all sessions across all instances end, caffeinate is stopped automatically
+
+**Cross-process synchronization:** The plugin uses file-based session tracking to correctly handle multiple OpenCode instances running in parallel. Each session creates a PID file, and stale sessions (crashed processes) are automatically detected and ignored.
 
 ## Development
 
 ```bash
 # Install dependencies
 bun install
+
+# Run tests
+bun run test
 
 # Type check
 bun run --bun tsc --noEmit
